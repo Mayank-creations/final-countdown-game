@@ -1,5 +1,5 @@
-import Player from "./components/player";
-import Header from "./components/Header";
+import Player from "./components/Player.jsx";
+import Header from "./components/Header.jsx";
 
 function App() {
   return (
