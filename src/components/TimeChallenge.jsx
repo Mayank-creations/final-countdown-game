@@ -1,8 +1,10 @@
 import React, { useState , useRef } from "react";
+import ResultsPopup from "./ResultPopup";
 
 export default function TimeChallenge({ title, targetTime }) {
 
     const timer = useRef();
+    const dialog = useRef();
 
     const [timeStarted, setTimeStarted] = useState(false);
     const [timeExpired, setTimeExpired] = useState(false);
@@ -10,6 +12,7 @@ export default function TimeChallenge({ title, targetTime }) {
     function handleStart() {
         timer.current = setTimeout(() => {
             setTimeExpired(true);
+            dialog.current.showModal();
         }, targetTime * 1000);
 
         setTimeStarted(true);
@@ -21,9 +24,10 @@ export default function TimeChallenge({ title, targetTime }) {
     }
 
     return (
+        <>
+        <ResultsPopup ref={dialog} targettime={targetTime} result='lost'/>
         <section className="challenge">
             <h3>{title}</h3>
-            {timeExpired && <p>You Lost</p>  }
             <p className="challenge-time">
                 {targetTime} second{targetTime > 1 ? 's' : ''}
             </p>
@@ -34,5 +38,6 @@ export default function TimeChallenge({ title, targetTime }) {
                 {timeStarted ? 'Time is running' : 'Time Inactive'}
             </p>
         </section> 
+        </>
     );
 } 
